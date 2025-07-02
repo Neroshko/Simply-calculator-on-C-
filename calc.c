@@ -1,5 +1,9 @@
+//It only works on Mac OS!
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
 
 void plusfunc();
@@ -10,33 +14,36 @@ void powfunc();
 void sqrtfunc();
 
 int main(){
-  char choose;
+  char choose[10];
   printf("Welcome to simply C calculator!\n");
-  printf("Please choose operation(+, -, *, /, p (pow), s (sqrt): ");
-  scanf(" %c", &choose);
-  switch (choose)
-  {
-  case '+':
-    plusfunc();
-    break;
-  case '-':
-    minusfunc();
-    break;
-  case '*':
-    multifunc();
-    break;
-  case '/':
-    divfunc();
-    break;
-  case 'p':
-    powfunc();
-    break;
-  case 's':
-    sqrtfunc();
-    break;  
-  default:
-    printf("Invalid symbol!\n");
-    break;
+  while(true){
+    printf("Please choose operation(+, -, *, /, p (pow), s (sqrt), press 'q' to quit): ");
+    scanf(" %s", choose);
+    if(strcmp(choose, "+") == 0){
+      plusfunc();
+    } else if(strcmp(choose, "-") == 0){
+      minusfunc();
+    } else if(strcmp(choose, "*") == 0){
+      multifunc();
+    } else if(strcmp(choose, "/") == 0){
+      divfunc();
+    } else if(strcmp(choose, "p") == 0){
+      powfunc();
+    } else if(strcmp(choose, "s") == 0){
+      sqrtfunc();
+    } else if(strcmp(choose, "q") == 0){
+      printf("bye bye\n");
+      sleep(1);
+      break;
+    } else {
+      printf("Error! Invalid choose!\n");
+      printf("The program is ending\n");
+      sleep(1);
+      return 0;
+    }
+    sleep(2);
+    system("clear");
+    printf("Сonsole is cleared");
   }
   return 0;
 }
@@ -92,6 +99,10 @@ void divfunc(){
   scanf("%f", &num1);
   printf("Write num2: ");
   scanf("%f", &num2);
+  if(num1 == 0 || num2 == 0){
+    printf("Error! Division by zero!\n");
+    return;
+  }
 
   float result = num1 / num2;
   if(result ==(int)result){
@@ -120,8 +131,8 @@ void sqrtfunc(){
   float num;
   printf("Write sqrt num: ");
   scanf("%f", &num);
-  if(num <= 0){
-    printf("Invalid number!");
+  if(num < 0){
+    printf("Invalid number!\n");
     return;
   }
 
@@ -132,3 +143,4 @@ void sqrtfunc(){
     printf("%.1f in sqrt = %.1f\n",  num,  result);
   }
 }
+
