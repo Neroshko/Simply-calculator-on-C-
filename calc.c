@@ -1,4 +1,4 @@
-//It only works on Mac OS!
+//It only works on Mac OS/Linux!
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
